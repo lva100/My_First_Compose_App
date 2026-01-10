@@ -1,6 +1,5 @@
 package dev.lva100.myapp
 
-import android.R
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,6 +13,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import dev.lva100.myapp.ui.theme.InstagramProfileCard
 import dev.lva100.myapp.ui.theme.MyAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -29,38 +31,17 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 //        enableEdgeToEdge()
         setContent {
-            TimesTable()
+            InstagramProfileCard()
         }
     }
 }
 
 @Preview
 @Composable
-fun TimesTable() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
+fun CardTest() {
+    Card(
+        shape = RoundedCornerShape(8.dp)
     ) {
-        for(i in 1..9) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-            ) {
-                for(j in 1..9) {
-                    val color = if ((i+j)%2 == 0) Color.Yellow else Color.White
-                    Box(
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .weight(1f)
-                            .background(color = color)
-                            .border(width = 1.dp, color = Color.Gray),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(text = "${i*j}")
-                    }
-                }
-            }
-        }
+        Text(text="Hello World!!!")
     }
 }
