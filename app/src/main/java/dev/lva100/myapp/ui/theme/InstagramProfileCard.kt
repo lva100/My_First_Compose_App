@@ -1,6 +1,7 @@
 package dev.lva100.myapp.ui.theme
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,11 +20,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dev.lva100.myapp.R
 
 @Composable
 fun InstagramProfileCard() {
@@ -50,11 +53,12 @@ fun InstagramProfileCard() {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Box(
+            Image(
+                painter = painterResource(id = R.drawable.instagram_logo_2022),
+                contentDescription = "",
                 modifier = Modifier
                     .size(50.dp)
-                    .background(Color.Yellow)
-            ) { }
+            )
             UserStatistics(title = "Posts", value = "6,950")
             UserStatistics(title = "Followers", value = "436M")
             UserStatistics(title = "Following", value = "76")
@@ -75,11 +79,12 @@ private fun UserStatistics(
     ) {
         Text(
             text = value,
-            fontSize = 24.sp,
+            fontSize = 28.sp,
             fontFamily = FontFamily.Cursive
         )
         Text(
             text = title,
+            fontSize = 12.sp,
             fontWeight = FontWeight.Bold
         )
     }
