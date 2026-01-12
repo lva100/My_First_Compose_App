@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -26,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
@@ -62,9 +64,23 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun TextTest() {
-    Image(
-        painter = painterResource(id = R.drawable.instagram_logo_2022),
-        contentDescription = "",
-        contentScale = ContentScale.Fit
-    )
+    Box(
+        modifier = Modifier
+            .size(200.dp)
+            .background(Color.Cyan)
+    ) {
+            Image(
+                modifier = Modifier
+                    .background(Color.Green)
+                    .padding(25.dp)
+                    .clip(CircleShape)
+                    .size(100.dp)
+                    .background(Color.Red)
+                    .padding(25.dp)
+                    ,
+                painter = ColorPainter(Color.Yellow),
+                contentDescription = "",
+                contentScale = ContentScale.Fit
+            )
+        }
 }
