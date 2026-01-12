@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -42,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.lva100.myapp.ui.theme.InstagramProfileCard
 import dev.lva100.myapp.ui.theme.MyAppTheme
+import dev.lva100.myapp.ui.theme.PostCard
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,34 +55,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier
                         .fillMaxSize()
                         .background(MaterialTheme.colorScheme.background)
+                        .padding(8.dp)
                 ) {
-                    InstagramProfileCard()
+                    PostCard()
                 }
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun TextTest() {
-    Box(
-        modifier = Modifier
-            .size(200.dp)
-            .background(Color.Cyan)
-    ) {
-            Image(
-                modifier = Modifier
-                    .background(Color.Green)
-                    .padding(25.dp)
-                    .clip(CircleShape)
-                    .size(100.dp)
-                    .background(Color.Red)
-                    .padding(25.dp)
-                    ,
-                painter = ColorPainter(Color.Yellow),
-                contentDescription = "",
-                contentScale = ContentScale.Fit
-            )
-        }
 }
