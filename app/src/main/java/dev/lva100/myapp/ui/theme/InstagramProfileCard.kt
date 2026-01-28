@@ -11,35 +11,40 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
-//import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dev.lva100.myapp.MainViewModel
 import dev.lva100.myapp.R
 
 @Composable
-fun InstagramProfileCard() {
+fun InstagramProfileCard(
+    viewModel: MainViewModel
+) {
+    val isFollowed = viewModel.isFollowing.observeAsState(false)
     Card(
         modifier = Modifier.padding(8.dp),
         shape = RoundedCornerShape(
             topStart = 4.dp,
             topEnd = 4.dp
         ),
-//        colors = CardColors(
-//            containerColor = MaterialTheme.colorScheme.background,
-//            contentColor = MaterialTheme.colorScheme.onBackground,
-//            disabledContainerColor = MaterialTheme.colorScheme.background,
-//            disabledContentColor = MaterialTheme.colorScheme.onBackground
-//        ),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.background,
+            contentColor = MaterialTheme.colorScheme.onBackground,
+        ),
         border = BorderStroke(
             1.dp, color = MaterialTheme.colorScheme.onBackground
         )
@@ -76,14 +81,35 @@ fun InstagramProfileCard() {
                 text = "www.facebook.com/emotional_health",
                 fontSize = 12.sp,
             )
-            Button(
-                onClick = {  },
-                shape = RoundedCornerShape(4.dp),
-            )
-            {
-                Text(text = "Follow")
+            FollowButton(isFollowed = isFollowed) {
+                viewModel.changeFollowingStatus()
             }
         }
+    }
+}
+
+@Composable
+private fun FollowButton(
+    isFollowed: State<Boolean>,
+    clickListener: () -> Unit
+) {
+    Button(
+        onClick = { clickListener() },
+        shape = RoundedCornerShape(4.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = if (isFollowed.value) {
+                MaterialTheme.colorScheme.background.copy(alpha = 0.5f)
+            } else {
+                MaterialTheme.colorScheme.background
+            }
+        )
+    ) {
+        val text = if (isFollowed.value) {
+            "Unfollow"
+        } else {
+            "Follow"
+        }
+        Text(text = text)
     }
 }
 
@@ -110,7 +136,7 @@ private fun UserStatistics(
         )
     }
 }
-
+/*
 @Preview
 @Composable
 fun PreviewCardLight() {
@@ -130,3 +156,4 @@ fun PreviewCardBlack() {
         InstagramProfileCard()
     }
 }
+*/
