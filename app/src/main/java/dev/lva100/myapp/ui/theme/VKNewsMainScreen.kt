@@ -11,23 +11,19 @@ import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import dev.lva100.myapp.VKNewsMainModel
 import dev.lva100.myapp.domain.FeedPost
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MainScreen() {
-
-    val feedPost = remember {
-        mutableStateOf(FeedPost())
-    }
-
+fun MainScreen(viewModel: VKNewsMainModel) {
     Scaffold(
         bottomBar = {
             NavigationBar {
@@ -62,33 +58,20 @@ fun MainScreen() {
 
             }
         }) {
+
+        val feedPost = viewModel.feedPost.observeAsState(FeedPost())
+
         PostCard(
             modifier = Modifier.padding(8.dp),
             feedPost = feedPost.value,
-            onStatisticsItemClickListener = { newItem ->
-                val oldStatistics = feedPost.value.statistics
-                val newStatistics = oldStatistics.toMutableList().apply {
-                    replaceAll {
-                        oldItem ->
-                        if(oldItem.type == newItem.type) {
-                            oldItem.copy(count = oldItem.count + 1)
-                        } else {
-                            oldItem
-                        }
-                    }
-                }
-                feedPost.value = feedPost.value.copy(statistics = newStatistics)
-            }
+            onViewsItemClickListener = viewModel::updateCount,
+            onShareItemClickListener = viewModel::updateCount,
+            onLikeItemClickListener = {
+                viewModel.updateCount(it)
+            },
+            onCommentItemClickListener = {
+                viewModel.updateCount(it)
+            },
         )
-    }
-}
-
-@Preview
-@Composable
-fun testUI() {
-    VKNewsClientTheme(
-        darkTheme = false
-    ) {
-        MainScreen()
     }
 }
