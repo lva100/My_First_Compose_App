@@ -23,6 +23,25 @@ class MainActivity : ComponentActivity() {
 //            MyAppTheme() {
 //                InstagramProfileCard(viewModel)
 //            }
+
+            Test(viewModel = viewModel)
+        }
+    }
+}
+
+@Composable
+private fun Test(viewModel: MainViewModel) {
+    MyAppTheme() {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+        ) {
+            LazyColumn {
+                items(500) {
+                    InstagramProfileCard(viewModel)
+                }
+            }
         }
     }
 }
