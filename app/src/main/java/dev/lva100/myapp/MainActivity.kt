@@ -25,12 +25,20 @@ import dev.lva100.myapp.ui.theme.InstagramProfileCard
 import dev.lva100.myapp.ui.theme.MyAppTheme
 
 class MainActivity : ComponentActivity() {
+
+    private val viewModel by viewModels<VKNewsMainModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+//        val viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+//        val viewModel = ViewModelProvider(this)[VKNewsMainModel::class.java]
         setContent {
-//            VKNewsClientTheme {
-//                MainScreen()
+            VKNewsClientTheme {
+                MainScreen(viewModel)
+            }
+
+//            MyAppTheme() {
+//                InstagramProfileCard(viewModel)
 //            }
 
             Test(viewModel = viewModel)
