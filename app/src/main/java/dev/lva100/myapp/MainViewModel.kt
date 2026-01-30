@@ -9,7 +9,7 @@ import kotlin.random.Random
 class MainViewModel: ViewModel() {
 
     private val initialList = mutableListOf<InstagramModel>().apply {
-        repeat(500) {
+        repeat(100) {
             add(
                 InstagramModel(
                     id = it,
@@ -33,6 +33,12 @@ class MainViewModel: ViewModel() {
                 it
             }
         }
+        _models.value = modifiedList
+    }
+
+    fun delete(model: InstagramModel) {
+        val modifiedList = _models.value?.toMutableList() ?: mutableListOf()
+        modifiedList.remove(model)
         _models.value = modifiedList
     }
 
