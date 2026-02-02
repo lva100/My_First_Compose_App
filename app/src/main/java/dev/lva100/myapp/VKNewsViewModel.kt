@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dev.lva100.myapp.domain.FeedPost
 import dev.lva100.myapp.domain.StatisticItem
-import dev.lva100.myapp.ui.theme.NavigationItem
 
 class VKNewsViewModel : ViewModel() {
     private val sourceList = mutableListOf<FeedPost>().apply {
@@ -15,14 +14,6 @@ class VKNewsViewModel : ViewModel() {
     }
     private val _feedPosts = MutableLiveData<List<FeedPost>>(sourceList)
     val feedPosts: LiveData<List<FeedPost>> = _feedPosts
-
-    private val _selectedNavItem = MutableLiveData<NavigationItem>(NavigationItem.Home)
-    val selectedNavItem: LiveData<NavigationItem> = _selectedNavItem
-
-    fun selectNavItem(item: NavigationItem) {
-        _selectedNavItem.value = item
-    }
-
     fun updateCount(feedPost: FeedPost, item: StatisticItem) {
         val oldPosts = feedPosts.value?.toMutableList() ?: throw IllegalStateException()
         val oldStatistics = feedPost.statistics

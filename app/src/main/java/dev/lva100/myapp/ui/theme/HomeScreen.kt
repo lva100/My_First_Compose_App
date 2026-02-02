@@ -33,7 +33,7 @@ fun HomeScreen(
             top = 16.dp,
             start = 8.dp,
             end = 8.dp,
-            bottom = 74.dp
+            bottom = 16.dp
         ),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     )
