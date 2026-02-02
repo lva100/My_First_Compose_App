@@ -4,6 +4,7 @@ import dev.lva100.myapp.R
 
 
 data class FeedPost (
+    val id: Int = 0,
     val communityName: String = "/dev/null",
     val publicationDate: String = "14:00",
     val avatarResId: Int = R.drawable.telegram,

@@ -182,7 +182,7 @@ private fun IconWithText(
             onItemClickListener()
         },
         verticalAlignment = Alignment.CenterVertically,
-        ) {
+    ) {
         Icon(
             painter = painterResource(id = iconResId),
             contentDescription = null,
