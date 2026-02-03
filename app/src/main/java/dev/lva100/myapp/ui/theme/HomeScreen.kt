@@ -1,24 +1,10 @@
 package dev.lva100.myapp.ui.theme
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.SwipeToDismissBox
-import androidx.compose.material3.Text
-import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import dev.lva100.myapp.VKNewsViewModel
+import dev.lva100.myapp.domain.PostComment
 
 @Composable
 fun HomeScreen(
@@ -27,6 +13,22 @@ fun HomeScreen(
 ) {
     val feedPosts = viewModel.feedPosts.observeAsState(listOf())
 
+    if (feedPosts.value.isNotEmpty()) {
+        val comments = mutableListOf<PostComment>().apply {
+            repeat(20) {
+                add(
+                    PostComment(id = it)
+                )
+            }
+        }
+        CommentsScreen(
+            feedPosts.value.get(0),
+            comments = comments
+        )
+    }
+
+
+    /*
     LazyColumn(
         modifier = Modifier.padding(paddingValues),
         contentPadding = PaddingValues(
@@ -84,5 +86,5 @@ fun HomeScreen(
                 )
             }
         }
-    }
+    }*/
 }
