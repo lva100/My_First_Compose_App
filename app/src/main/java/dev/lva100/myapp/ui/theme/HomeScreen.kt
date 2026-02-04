@@ -1,5 +1,6 @@
 package dev.lva100.myapp.ui.theme
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -40,8 +41,14 @@ fun HomeScreen(
         is HomeScreenState.Comments -> {
             CommentsScreen(
                 feedPost = currentState.feedPost,
-                comments = currentState.comments
+                comments = currentState.comments,
+                onBackPressed = {
+                    viewModel.closeComments()
+                }
             )
+            BackHandler {
+                viewModel.closeComments()
+            }
         }
 
         is HomeScreenState.Initial -> {
@@ -107,8 +114,8 @@ private fun FeedPosts(
                     onLikeItemClickListener = { statisticItem ->
                         viewModel.updateCount(feedPost, statisticItem)
                     },
-                    onCommentItemClickListener = { statisticItem ->
-                        viewModel.updateCount(feedPost, statisticItem)
+                    onCommentItemClickListener = {
+                        viewModel.showComments(feedPost)
                     },
                 )
             }
