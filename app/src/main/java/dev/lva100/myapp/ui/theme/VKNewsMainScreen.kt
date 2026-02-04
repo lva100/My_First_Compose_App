@@ -20,10 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import dev.lva100.myapp.domain.FeedPost
 import dev.lva100.myapp.navigation.AppNavGraph
-import dev.lva100.myapp.navigation.Screen
 import dev.lva100.myapp.navigation.rememberNavigationState
 
 @Composable
@@ -38,16 +38,20 @@ fun MainScreen() {
         bottomBar = {
             NavigationBar {
                 val navBackStackEntry by navigationState.navHostController.currentBackStackEntryAsState()
-                val currentRoute = navBackStackEntry?.destination?.route
                 val items = listOf(
                     NavigationItem.Home, NavigationItem.Favourite, NavigationItem.Profile
                 )
                 items.forEach { item ->
+                    val selected = navBackStackEntry?.destination?.hierarchy?.any {
+                        it.route == item.screen.route
+                    } ?: false
                     NavigationBarItem(
                         onClick = {
-                            navigationState.navigateTo(item.screen.route)
+                            if (!selected) {
+                                navigationState.navigateTo(item.screen.route)
+                            }
                         },
-                        selected = currentRoute == item.screen.route,
+                        selected = selected,
                         icon = {
                             Icon(item.icon, contentDescription = null)
                         },
@@ -75,14 +79,14 @@ fun MainScreen() {
                     paddingValues = paddingValues,
                     onCommentClickListener = {
                         commentsToPost.value = it
-                        navigationState.navigateTo(Screen.Comments.route)
+                        navigationState.navigateToComments()
                     }
                 )
             },
             commentsScreenContent = {
                 CommentsScreen(
                     onBackPressed = {
-                        commentsToPost.value = null
+                        navigationState.navHostController.popBackStack()
                     },
                     feedPost = commentsToPost.value!!
                 )
