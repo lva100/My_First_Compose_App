@@ -3,16 +3,12 @@ package dev.lva100.myapp.ui.theme
 import dev.lva100.myapp.domain.FeedPost
 import dev.lva100.myapp.domain.PostComment
 
-sealed class HomeScreenState {
+sealed class CommentsScreenState {
 
-    object Initial : HomeScreenState()
-
-    data class Posts(
-        val posts: List<FeedPost>
-    ) : HomeScreenState()
+    object Initial : CommentsScreenState()
 
     data class Comments(
         val feedPost: FeedPost,
         val comments: List<PostComment>
-    ) : HomeScreenState()
+    ) : CommentsScreenState()
 }
